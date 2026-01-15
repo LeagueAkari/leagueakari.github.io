@@ -21,32 +21,38 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Node.js
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'pnpm'
 
-      # pnpm
       - name: Setup pnpm
         uses: pnpm/action-setup@v3
         with:
           version: 9
 
-      # GitHub Pages + Next.js static export adjustments (basePath, images.unoptimized, etc.)
+      - name: Get pnpm store path
+        id: pnpm-store
+        run: echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_OUTPUT
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-store.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
           static_site_generator: next
 
-      # Optional: cache Next.js build cache
-      - name: Restore Next.js cache
+      - name: Cache Next.js build cache
         uses: actions/cache@v4
         with:
-          path: |
-            .next/cache
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**/*.[jt]s', '**/*.[jt]sx', '**/*.[jt]s?(x)') }}
+          path: .next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-${{ hashFiles('**/*.[jt]s', '**/*.[jt]sx') }}
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
 
@@ -55,10 +61,6 @@ jobs:
 
       - name: Build with Next.js
         run: pnpm next build
-
-      # If your project requires an explicit export step, uncomment this.
-      # - name: Export static site
-      #   run: pnpm next export
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
