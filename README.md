@@ -4,4 +4,4 @@ League Akari 的静态站点。
 
 ## Dev
 
-使用 `http://localhost:3000/LeagueAkari-Pages` 访问。
+使用 `http://localhost:3000` 访问。

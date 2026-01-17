@@ -2,7 +2,6 @@
 
 import { useRef, useState } from 'react'
 import { Volume2 } from 'lucide-react'
-import { SITE_BASE } from '@/config/site'
 
 export function AkariVoiceButton() {
   const audioRef = useRef<HTMLAudioElement | null>(null)
@@ -40,7 +39,7 @@ export function AkariVoiceButton() {
       >
         <Volume2 className="h-3 w-3" />
       </button>
-      <audio ref={audioRef} src={`${SITE_BASE}/audio/akari_zephyr.wav`} onEnded={handleEnded} />
+      <audio ref={audioRef} src="/audio/akari_zephyr.wav" onEnded={handleEnded} />
     </span>
   )
 }

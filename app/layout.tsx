@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/components/ThemeProvider'
-import { SITE_BASE, SITE_URL } from '@/config/site'
+import { SITE_URL } from '@/config/site'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
   },
 
   icons: {
-    icon: `${SITE_BASE}/svg/favicon.svg`
+    icon: '/svg/favicon.svg'
   },
 
   metadataBase: new URL(SITE_URL)
