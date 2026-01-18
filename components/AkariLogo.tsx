@@ -6,9 +6,9 @@ import { useIsClient } from '../hooks/use-is-client'
 
 export function AkariLogo({ invert = true }: { invert?: boolean }) {
   const { resolvedTheme } = useTheme()
-  const isClient = useIsClient()
+  const isMounted = useIsClient()
 
-  if (!isClient) {
+  if (!isMounted) {
     return null
   }
 

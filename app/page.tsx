@@ -2,12 +2,14 @@ import { ModeToggle } from '@/components/ModeToggle'
 import { Download, Shield, Globe, Terminal, Cpu, DollarSign, ExternalLink, Book, MessageCircle } from 'lucide-react'
 import Link from 'next/link'
 import { AkariLogo } from '@/components/AkariLogo'
-import { ReactNode } from 'react'
 import { DOWNLOAD_URLS, FEEDBACK_LINKS } from '@/config/content'
 import { LATEST_TAG_NAME, LANZOU_PASSWORD } from '@/config/content'
 import { AkariVoiceButton } from '@/components/AkariVoiceButton'
 import { GithubButton } from '@/components/GithubStars'
 import { SiTelegram, SiQq } from '@icons-pack/react-simple-icons'
+import { FeatureShowcase } from '@/components/FeatureShowcase'
+import { FeatureCard } from '@/components/FeatureCard'
+import { FeedbackLink } from '@/components/FeedbackLink'
 
 export default function Home() {
   return (
@@ -107,7 +109,12 @@ export default function Home() {
               <FeatureCard
                 icon={<DollarSign className="h-6 w-6 text-emerald-500" />}
                 title="完全免费"
-                description="白嫖最棒了！不要再去闲鱼、淘宝、抖音等其他平台付费购买了，算我求你"
+                description={
+                  <>
+                    为爱发电，白嫖赛高。不要再去某鱼、某宝、某音等其他平台被赚差价了，算我
+                    <span className="text-akari-500 dark:text-akari-400 font-bold">求</span>你
+                  </>
+                }
               />
               <FeatureCard
                 icon={<Shield className="h-6 w-6 text-emerald-500" />}
@@ -119,11 +126,11 @@ export default function Home() {
                       href="https://riot-api-libraries.readthedocs.io/en/latest/lcu.html"
                       target="_blank"
                       rel="noreferrer"
-                      className="text-akari-500 dark:text-akari-400 text-xs font-bold hover:underline"
+                      className="text-akari-500 dark:text-akari-400 text-xs font-bold underline"
                     >
                       LCU API
                     </Link>
-                    ，不操作游戏进程
+                    ，不操作游戏进程。但注意，这并不代表它一定安全
                   </>
                 }
               />
@@ -180,15 +187,56 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Feedback Channels */}
+        {/* Feature Showcase */}
         <section
-          id="feedback"
+          id="showcase"
           className="bg-white py-20 transition-[background-color] duration-300 dark:bg-neutral-950"
         >
           <div className="container mx-auto max-w-5xl px-4">
-            <div className="mb-12 text-center">
+            <div className="mb-16 text-center">
+              <h2 className="mb-4 text-3xl font-bold tracking-tight">哼哼</h2>
+              <p className="text-neutral-600 dark:text-neutral-400">有人总说，我不喜欢写文档。其实说的没错。</p>
+            </div>
+
+            <div className="space-y-16">
+              <FeatureShowcase
+                title="玩家页面"
+                description="看看这名玩家最近的对局、表现等数据。"
+                imgUrl="/images/showcase-1.png"
+              />
+
+              <FeatureShowcase
+                title="对局面板"
+                description="当你在英雄选择阶段或游戏内时，查看成员们的近期表现和组队情况。"
+                imgUrl="/images/showcase-2.png"
+              />
+
+              <FeatureShowcase
+                title="实用工具"
+                description="自动 ban / pick，奖励领取，设置生涯背景，或删除过期好友... 各种小功能敬请探索。"
+                imgUrl="/images/showcase-3.png"
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* Feedback Channels */}
+        <section
+          id="feedback"
+          className="bg-neutral-50 py-20 transition-[background-color] duration-300 dark:bg-neutral-900/50"
+        >
+          <div className="container mx-auto max-w-5xl px-4">
+            <div className="mb-12 flex flex-col items-center text-center">
               <h2 className="mb-4 text-3xl font-bold tracking-tight">交流渠道</h2>
-              <p className="text-neutral-600 dark:text-neutral-400">遇到问题或爱好吹水者速加。</p>
+              <p className="text-neutral-600 dark:text-neutral-400">
+                遇到问题或爱好吹水者速加。
+                <br />请<span className="text-akari-500 dark:text-akari-400 font-bold">务必</span>
+                掌握一定的计算机基础知识，即可以
+                <span className="text-akari-500 dark:text-akari-400 font-bold">清晰地描述问题</span>、以及
+                <span className="text-akari-500 dark:text-akari-400 font-bold">发送日志</span>。
+                <br />
+                过于模糊的提问可能会被管理团队忽略。
+              </p>
             </div>
 
             <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -220,86 +268,28 @@ export default function Home() {
       {/* Footer */}
       <footer className="border-t border-neutral-200 bg-white py-12 transition-[background-color] duration-300 dark:border-neutral-800 dark:bg-neutral-950">
         <div className="container mx-auto max-w-5xl px-4">
-          <p className="text-justify text-xs text-neutral-400 dark:text-neutral-600 dark:before:bg-neutral-800">
+          <p className="text-justify text-xs leading-relaxed text-neutral-400 dark:text-neutral-600 dark:before:bg-neutral-800">
             1. League Akari 没有获得 Riot Games 的认可，也不代表 Riot Games 的观点或意见。 Riot Games
             及其所有相关资源均为 Riot Games, Inc. 的商标或注册商标。
           </p>
 
-          <p id="note2" className="text-justify text-xs text-neutral-400 dark:text-neutral-600">
+          <p id="note2" className="text-justify text-xs leading-relaxed text-neutral-400 dark:text-neutral-600">
             2. 为遏制盈利性软件套壳，我们不提供最新版本的源代码。
           </p>
 
-          <p className="text-justify text-xs text-neutral-400 dark:text-neutral-600">
+          <p className="text-justify text-xs leading-relaxed text-neutral-400 dark:text-neutral-600">
             3. 群聊会定期清理潜水人员，并且通常不会事先通知。请保持最低限度的活跃。
           </p>
 
-          <p className="mt-4 text-center text-xs text-neutral-400 dark:text-neutral-600">
+          <p className="text-justify text-xs leading-relaxed text-neutral-400 dark:text-neutral-600">
+            4. 部分网吧系统可能会限制此软件的运行。
+          </p>
+
+          <p className="mt-8 text-center text-xs text-neutral-400 dark:text-neutral-600">
             &copy; {new Date().getFullYear()} League Akari Dev Team. 所有权利保留。
           </p>
         </div>
       </footer>
     </div>
-  )
-}
-
-function FeatureCard({ icon, title, description }: { icon: ReactNode; title: string; description: ReactNode }) {
-  return (
-    <div className="rounded-xl border border-neutral-200 bg-white p-6 transition-[background-color,box-shadow] duration-300 dark:border-neutral-800 dark:bg-neutral-900">
-      <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-neutral-100 transition-[background-color] duration-300 dark:bg-neutral-800">
-        {icon}
-      </div>
-      <h3 className="mb-2 text-lg font-semibold">{title}</h3>
-      <p className="text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">{description}</p>
-    </div>
-  )
-}
-
-function FeedbackLink({
-  href,
-  icon,
-  name,
-  type,
-  id,
-  password,
-  color
-}: {
-  href: string
-  icon: ReactNode
-  name: string
-  type: 'qq' | 'telegram'
-  id: string
-  password: string | null
-  color: string
-}) {
-  const platformName = type === 'qq' ? 'QQ' : 'Telegram'
-
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noreferrer"
-      className="group hover:border-akari-300 hover:bg-akari-50/50 dark:hover:border-akari-500/50 dark:hover:bg-akari-500/5 relative flex items-center gap-3 rounded-lg border border-neutral-200 bg-white p-4 transition-[background-color,border-color,transform] duration-200 dark:border-neutral-800 dark:bg-neutral-900"
-    >
-      <div
-        className={`flex h-10 w-10 items-center justify-center rounded-lg bg-neutral-100 transition-[background-color] duration-200 group-hover:bg-white dark:bg-neutral-800 dark:group-hover:bg-neutral-700 ${color}`}
-      >
-        {icon}
-      </div>
-      <div className="min-w-0 flex-1">
-        <div className="truncate font-semibold text-neutral-900 dark:text-neutral-100">{name}</div>
-        <div className="flex items-center gap-2 text-xs text-neutral-500 dark:text-neutral-400">
-          <span>{platformName}</span>
-          <span className="text-neutral-400 dark:text-neutral-500">•</span>
-          <span className="truncate">{id}</span>
-          {password && (
-            <>
-              <span className="text-neutral-400 dark:text-neutral-500">•</span>
-              <span>密码 {password}</span>
-            </>
-          )}
-        </div>
-      </div>
-      <ExternalLink className="group-hover:text-akari-500 h-4 w-4 shrink-0 text-neutral-400 transition-colors" />
-    </a>
   )
 }
