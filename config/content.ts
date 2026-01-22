@@ -1,4 +1,4 @@
-export const LATEST_TAG_NAME = 'v1.4.2'
+export const LATEST_TAG_NAME = 'v1.4.3'
 
 export const LANZOU_PASSWORD = 'miku'
 
