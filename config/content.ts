@@ -11,16 +11,16 @@ export const DOWNLOAD_URLS = {
 export const FEEDBACK_LINKS = [
   {
     type: 'qq',
-    name: '据点一号（新）',
-    id: '1091779450',
-    url: 'https://qm.qq.com/q/jelWtbrjck',
+    name: '据点二号',
+    id: '543703181',
+    url: 'https://qm.qq.com/q/3V9pqYEspq',
     password: 'akari'
   },
   {
     type: 'qq',
-    name: '据点二号',
-    id: '543703181',
-    url: 'https://qm.qq.com/q/WEmiNuHBuY',
+    name: '据点三号',
+    id: '1097069247',
+    url: 'https://qm.qq.com/q/F5GG8l9HY6',
     password: 'akari'
   },
   {
