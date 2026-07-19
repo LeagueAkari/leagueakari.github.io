@@ -5,15 +5,13 @@ interface FeedbackLinkProps {
   href: string
   icon: ReactNode
   name: string
-  type: 'qq' | 'telegram'
-  id: string
+  platformLabel: string
+  identifier: string
   password: string | null
   color: string
 }
 
-export function FeedbackLink({ href, icon, name, type, id, password, color }: FeedbackLinkProps) {
-  const platformName = type === 'qq' ? 'QQ' : 'Telegram'
-
+export function FeedbackLink({ href, icon, name, platformLabel, identifier, password, color }: FeedbackLinkProps) {
   return (
     <a
       href={href}
@@ -29,9 +27,9 @@ export function FeedbackLink({ href, icon, name, type, id, password, color }: Fe
       <div className="min-w-0 flex-1">
         <div className="truncate font-semibold text-neutral-900 dark:text-neutral-100">{name}</div>
         <div className="flex items-center gap-2 text-xs text-neutral-500 dark:text-neutral-400">
-          <span>{platformName}</span>
+          <span>{platformLabel}</span>
           <span className="text-neutral-400 dark:text-neutral-500">•</span>
-          <span className="truncate">{id}</span>
+          <span className="truncate">{identifier}</span>
           {password && (
             <>
               <span className="text-neutral-400 dark:text-neutral-500">•</span>

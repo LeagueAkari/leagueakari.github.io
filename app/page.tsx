@@ -1,15 +1,14 @@
 import { ModeToggle } from '@/components/ModeToggle'
-import { Download, Shield, Globe, Terminal, Cpu, DollarSign, ExternalLink, Book, MessageCircle } from 'lucide-react'
+import { Download, Shield, Globe, Terminal, Cpu, DollarSign, ExternalLink, Book } from 'lucide-react'
 import Link from 'next/link'
 import { AkariLogo } from '@/components/AkariLogo'
-import { DOWNLOAD_URLS, FEEDBACK_LINKS } from '@/config/content'
+import { DOWNLOAD_URLS } from '@/config/content'
 import { LATEST_TAG_NAME, LANZOU_PASSWORD } from '@/config/content'
 import { AkariVoiceButton } from '@/components/AkariVoiceButton'
 import { GithubButton } from '@/components/GithubStars'
-import { SiTelegram, SiQq } from '@icons-pack/react-simple-icons'
 import { FeatureShowcase } from '@/components/FeatureShowcase'
 import { FeatureCard } from '@/components/FeatureCard'
-import { FeedbackLink } from '@/components/FeedbackLink'
+import { FeedbackChannels } from '@/components/FeedbackChannels'
 
 export default function Home() {
   return (
@@ -239,28 +238,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-              {FEEDBACK_LINKS.map((link) => (
-                <FeedbackLink
-                  key={link.id}
-                  href={link.url}
-                  icon={
-                    link.type === 'telegram' ? (
-                      <SiTelegram className="h-5 w-5" />
-                    ) : link.type === 'qq' ? (
-                      <SiQq className="h-5 w-5" />
-                    ) : (
-                      <MessageCircle className="h-5 w-5" />
-                    )
-                  }
-                  name={link.name}
-                  type={link.type as 'qq' | 'telegram'}
-                  id={link.id}
-                  password={link.password}
-                  color={link.type === 'qq' ? 'text-blue-500' : 'text-blue-400'}
-                />
-              ))}
-            </div>
+            <FeedbackChannels />
           </div>
         </section>
       </main>
