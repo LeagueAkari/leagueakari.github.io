@@ -1,14 +1,13 @@
 import { ModeToggle } from '@/components/ModeToggle'
-import { Download, Shield, Globe, Terminal, Cpu, DollarSign, ExternalLink, Book } from 'lucide-react'
+import { Shield, Globe, Terminal, Cpu, DollarSign, Book } from 'lucide-react'
 import Link from 'next/link'
 import { AkariLogo } from '@/components/AkariLogo'
-import { DOWNLOAD_URLS } from '@/config/content'
-import { LATEST_TAG_NAME, LANZOU_PASSWORD } from '@/config/content'
 import { AkariVoiceButton } from '@/components/AkariVoiceButton'
 import { GithubButton } from '@/components/GithubStars'
 import { FeatureShowcase } from '@/components/FeatureShowcase'
 import { FeatureCard } from '@/components/FeatureCard'
 import { FeedbackChannels } from '@/components/FeedbackChannels'
+import { ReleaseDownload } from '@/components/ReleaseDownload'
 
 export default function Home() {
   return (
@@ -53,39 +52,7 @@ export default function Home() {
                 数据分析、战绩查询以及各种实用工具。驻足片刻，体验一番吧。
               </p>
 
-              <div className="flex w-full flex-col justify-center gap-4 pt-4 sm:flex-row" id="download">
-                <a
-                  href={DOWNLOAD_URLS.github}
-                  className="bg-akari-500 shadow-akari-500/20 hover:bg-akari-600 inline-flex items-center justify-center gap-2 rounded-lg px-8 py-3 font-semibold text-white shadow-lg transition-all"
-                >
-                  <Download className="h-5 w-5" />
-                  GitHub
-                </a>
-
-                <a
-                  href={DOWNLOAD_URLS.lanzou}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="group hover:border-akari-300 hover:bg-akari-50/50 dark:hover:border-akari-500/50 dark:hover:bg-akari-500/5 inline-flex items-center justify-center gap-2 rounded-lg border border-neutral-200 bg-white/80 px-8 py-3 text-sm font-semibold text-neutral-900 transition-[background-color,border-color,transform] duration-200 dark:border-neutral-700 dark:bg-neutral-900/70 dark:text-neutral-50"
-                >
-                  <Download className="h-5 w-5" />
-                  蓝奏云
-                  <span className="text-xs text-neutral-500 dark:text-neutral-400">(提取码：{LANZOU_PASSWORD})</span>
-                  <ExternalLink className="size-4 text-neutral-400" />
-                </a>
-
-                <a
-                  href={DOWNLOAD_URLS.backup}
-                  className="group hover:border-akari-300 hover:bg-akari-50/50 dark:hover:border-akari-500/50 dark:hover:bg-akari-500/5 inline-flex items-center justify-center gap-2 rounded-lg border border-neutral-200 bg-white/80 px-8 py-3 text-sm font-semibold text-neutral-900 transition-[background-color,border-color,transform] duration-200 dark:border-neutral-700 dark:bg-neutral-900/70 dark:text-neutral-50"
-                >
-                  <Download className="h-5 w-5" />
-                  备用下载
-                </a>
-              </div>
-
-              <p className="pt-2 text-xs text-neutral-500 dark:text-neutral-500">
-                最新版本为 {LATEST_TAG_NAME}，系统最低需求为 Windows 10，仅支持 64 位。
-              </p>
+              <ReleaseDownload />
             </div>
           </div>
 

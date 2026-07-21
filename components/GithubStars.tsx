@@ -4,6 +4,9 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { SiGithub } from '@icons-pack/react-simple-icons'
 
+import { GITHUB_REPOSITORY_STATS_URL } from '@/config/api'
+import { GITHUB_REPOSITORY_URL } from '@/config/site'
+
 export function GithubButton() {
   const [stars, setStars] = useState<number | null>(null)
 
@@ -12,17 +15,17 @@ export function GithubButton() {
 
     async function fetchStars() {
       try {
-        const res = await fetch('https://api.github.com/repos/LeagueAkari/LeagueAkari', {
+        const res = await fetch(GITHUB_REPOSITORY_STATS_URL, {
           headers: {
-            Accept: 'application/vnd.github+json'
+            Accept: 'application/json'
           }
         })
 
         if (!res.ok) return
 
-        const data = (await res.json()) as { stargazers_count?: number }
-        if (!canceled && typeof data.stargazers_count === 'number') {
-          setStars(data.stargazers_count)
+        const data = (await res.json()) as { stargazersCount?: unknown }
+        if (!canceled && typeof data.stargazersCount === 'number') {
+          setStars(data.stargazersCount)
         }
       } catch {
         // ignore network errors, keep stars as null
@@ -41,14 +44,14 @@ export function GithubButton() {
 
   if (stars === null) {
     return (
-      <Link href="https://github.com/LeagueAkari/LeagueAkari" target="_blank" className={baseClass}>
+      <Link href={GITHUB_REPOSITORY_URL} target="_blank" className={baseClass}>
         <SiGithub className="size-4" />
       </Link>
     )
   }
 
   return (
-    <Link href="https://github.com/LeagueAkari/LeagueAkari" target="_blank" className={baseClass}>
+    <Link href={GITHUB_REPOSITORY_URL} target="_blank" className={baseClass}>
       <SiGithub className="size-4" />
       <span className="rounded py-0.5 pr-2 pl-1 text-sm leading-none font-bold text-neutral-700 dark:text-neutral-300">
         {stars.toLocaleString('en-US', {
