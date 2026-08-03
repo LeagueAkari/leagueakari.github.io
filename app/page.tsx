@@ -8,6 +8,7 @@ import { FeatureShowcase } from '@/components/FeatureShowcase'
 import { FeatureCard } from '@/components/FeatureCard'
 import { FeedbackChannels } from '@/components/FeedbackChannels'
 import { ReleaseDownload } from '@/components/ReleaseDownload'
+import { GITHUB_REPOSITORY_URL } from '@/config/site'
 
 export default function Home() {
   return (
@@ -120,13 +121,18 @@ export default function Home() {
               />
               <FeatureCard
                 icon={<Terminal className="h-6 w-6 text-amber-500" />}
-                title="半开源"
+                title="完全开源"
                 description={
                   <>
-                    部分版本的源代码可以直接查看。但是我们不打算第一时间公布最新版本的源代码
+                    源代码已在 GitHub 完整公开，并使用 MIT License 发布。欢迎查看、修改与参与贡献
                     <br />
-                    <Link href="#note2" className="text-xs text-black/40 hover:underline dark:text-white/40">
-                      参考注 2
+                    <Link
+                      href={GITHUB_REPOSITORY_URL}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-xs text-black/40 hover:underline dark:text-white/40"
+                    >
+                      查看源代码
                     </Link>
                   </>
                 }
@@ -218,8 +224,8 @@ export default function Home() {
             及其所有相关资源均为 Riot Games, Inc. 的商标或注册商标。
           </p>
 
-          <p id="note2" className="text-justify text-xs leading-relaxed text-neutral-400 dark:text-neutral-600">
-            2. 为遏制盈利性软件套壳，我们不提供最新版本的源代码。
+          <p className="text-justify text-xs leading-relaxed text-neutral-400 dark:text-neutral-600">
+            2. League Akari 的源代码已完整公开，并依据 MIT License 发布。
           </p>
 
           <p className="text-justify text-xs leading-relaxed text-neutral-400 dark:text-neutral-600">
