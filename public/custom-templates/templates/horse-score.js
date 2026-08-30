@@ -10,6 +10,7 @@ const MIN_GAME_DURATION_SECONDS = 15 * 60
 
 // 此模板只支持经典双队模式。原项目默认配置还包含 1700，League Akari 版本有意排除斗魂竞技场。
 const ALLOWED_QUEUE_IDS = new Set([420, 430, 440, 450])
+const PLACEHOLDER_PREFIX = '上等马模板'
 
 const GRADE_THRESHOLDS = [
   [180, '通天代'],
@@ -82,19 +83,34 @@ const ASSIST_CONTRIBUTION = [
 ]
 
 function getMessages(ctx) {
-  const { target } = ctx.options
-  const { manager } = ctx.runtime
+  const target = ctx?.options?.target
+  const manager = ctx?.runtime?.manager
+  if (!manager || typeof manager.getInstance !== 'function') {
+    return placeholderMessage('游戏数据尚未就绪，请稍后再试')
+  }
+
   const ongoingGame = manager.getInstance('ongoing-game-main')
   const leagueClient = manager.getInstance('league-client-main')
 
-  if (!ongoingGame || !leagueClient) return []
+  if (!ongoingGame?.state || !leagueClient?.data) {
+    return placeholderMessage('游戏数据尚未就绪，请稍后再试')
+  }
 
   const state = ongoingGame.state
-  const currentQueueId = state.queryStage.gameInfo?.queueId
-  if (!ALLOWED_QUEUE_IDS.has(currentQueueId)) return []
+  const currentQueueId = Number(state.queryStage?.gameInfo?.queueId)
+  if (!Number.isFinite(currentQueueId)) {
+    return placeholderMessage('当前没有可供评价的对局')
+  }
+  if (!ALLOWED_QUEUE_IDS.has(currentQueueId)) {
+    const queueName = queueDisplayName(currentQueueId, leagueClient.data.gameData)
+    return placeholderMessage(queueName ? `当前模式“${queueName}”暂不支持评价` : '当前游戏模式暂不支持评价')
+  }
 
-  const selfPuuid = state.draft?.puuid || leagueClient.data.summoner.me?.puuid || null
+  const selfPuuid = state.draft?.puuid || leagueClient.data.summoner?.me?.puuid || null
   const members = selectTargetMembers(target, state.teams, selfPuuid)
+  if (!members.length) {
+    return placeholderMessage('未找到可评价的目标玩家')
+  }
 
   return members.map((puuid) => {
     const history = state.matchHistory?.[puuid]?.data || []
@@ -109,6 +125,16 @@ function getMessages(ctx) {
     const score = mergeScores(scores)
     return `${gradeName(score)} ${display} 评分 ${score.toFixed(1)}，样本 ${scores.length} 场`
   })
+}
+
+function placeholderMessage(reason) {
+  return [`${PLACEHOLDER_PREFIX}：${reason}`]
+}
+
+function queueDisplayName(queueId, gameData) {
+  const queue = gameData?.queues?.[queueId]
+  const name = queue?.shortName || queue?.name || ''
+  return typeof name === 'string' ? name.trim() : ''
 }
 
 function extractGame(puuid, gameSummary) {
@@ -298,7 +324,8 @@ function uniqueTarget(target, friendly, enemy) {
 
 function playerDisplayName(puuid, state, gameData) {
   const championId = state.championSelections?.[puuid] || 0
-  const championName = championId > 0 ? gameData.championName(championId) : ''
+  const championName =
+    championId > 0 ? gameData?.championName?.(championId) || gameData?.champions?.[championId]?.name || '' : ''
   const summoner = state.summoner?.[puuid]
   const playerName = summoner?.gameName || summoner?.displayName || ''
   const riotId = playerName && summoner?.tagLine ? `${playerName}#${summoner.tagLine}` : playerName
