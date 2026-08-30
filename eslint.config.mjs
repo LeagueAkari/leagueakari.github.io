@@ -5,6 +5,12 @@ import nextTs from 'eslint-config-next/typescript'
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
+  {
+    files: ['public/custom-templates/templates/*.js'],
+    rules: {
+      '@typescript-eslint/no-unused-vars': 'off'
+    }
+  },
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:
